@@ -14,6 +14,9 @@ The purpose of the **Fibroid Analysis** app is that it allows users to explore a
   - **PCA Plot**: Principal Component Analysis (PCA) plot to explore the variance in gene expression data.
 - **Data Download**: Filtered metadata and expression data can be downloaded as an Excel file.
 
+
+<img width="1707" alt="Screenshot 2024-08-28 at 17 40 12" src="https://github.com/user-attachments/assets/55d1abdf-ace8-4cec-a0e0-8834d930e8e6">
+
 ## Installation
 
 To run this Shiny app locally, you need to have R installed on your machine along with the required packages.
@@ -22,6 +25,3 @@ To run this Shiny app locally, you need to have R installed on your machine alon
 
 ```r
 install.packages(c("shiny", "shinydashboard", "DT", "readxl", "ggplot2", "plotly", "writexl", "reshape2"))
-
-
-<img width="1707" alt="Screenshot 2024-08-28 at 17 40 12" src="https://github.com/user-attachments/assets/adc15ec9-c4bb-4420-a65a-e75208b5fec7">
