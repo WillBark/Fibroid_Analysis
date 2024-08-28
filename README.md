@@ -4,6 +4,7 @@
 
 The purpose of the **Fibroid Analysis** app is that it allows users to explore and analyze data related to uterine fibroids. The app provides various filters, visualizations, and the ability to download filtered data for further analysis.
 To run the application, download all the data (Master_for_R) and (combat_data), along with the PCA_Core, server, UI and app csv. Inlcude all into a single file, with the www file inside this.
+You will need to unzip the combat_data file first.
 
 ## Features
 
