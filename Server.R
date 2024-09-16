@@ -201,21 +201,28 @@ server <- function(input, output, session) {
     ggplotly(p, tooltip = 'text')
   })
   
-  #Creates the Gene Expression Box Plot only if the gene filter is selected and no other filter selected
+    #Creates the Gene Expression Box Plot only if the gene filter is selected and no other filter is selected
   output$gene_box_plot <- renderPlotly({
     req(input$gene_filter)
     
+    #Get filtered gene data
     gene_data <- filtered_gene_data()
+    
+    #Convert wide-format gene expression data into a long format
     gene_data_long <- reshape2::melt(as.data.frame(t(gene_data)), variable.name = 'Gene', value.name = 'Expression')
-    gene_data_long$Sample_Type <- rep(filtered_metadata()$Sample_Type, each = length(input$gene_filter)) #Sample Type label added
-    gene_data_long$Paper_ID <- rep(filtered_metadata()$Paper_ID, each = length(input$gene_filter)) #PaperID label added
     
-    p <- ggplot(gene_data_long, aes(x = Gene, y = Expression, fill = Sample_Type)) +
+    #Add Sample_Type and Paper_ID to long-format data for grouping and faceting
+    gene_data_long$Sample_Type <- rep(filtered_metadata()$Sample_Type, each = length(input$gene_filter))  #Add Sample Type
+    gene_data_long$Paper_ID <- rep(filtered_metadata()$Paper_ID, each = length(input$gene_filter))  #Add Paper ID
+    
+    #Create the box plot with side-by-side comparison of Fibroid and Myometrium
+    p <- ggplot(gene_data_long, aes(x = Sample_Type, y = Expression, fill = Sample_Type)) +  #Side-by-side on x-axis
       geom_boxplot() +
-      labs(title = 'Gene Expression Box Plot', x = 'Gene', y = 'Expression Level') +
+      labs(title = 'Gene Expression Box Plot', x = 'Tissue Type', y = 'Expression Level') +
       theme_minimal() +
-      facet_grid(~ Paper_ID, scales = 'free_y')
+      facet_grid(Gene ~ Paper_ID, scales = 'free_y')  #Facet by Gene (rows) and Paper_ID (columns)
     
+    #Create the plot using ggplotly for interactivity
     ggplotly(p)
   })
   
